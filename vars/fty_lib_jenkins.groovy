@@ -1,6 +1,6 @@
 def test(String project = "Jenkins test") {
     pipeline {
-        agent none
+        agent any
 
         stages {
             stage('Build') {

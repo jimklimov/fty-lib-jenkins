@@ -1,4 +1,4 @@
-def test(String project = "Jenkins test") {
+def call(String project = "Jenkins test") {
     pipeline {
         agent any
 

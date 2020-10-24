@@ -41,16 +41,20 @@ def call() {
                             }
 
                             stage('Memchecks') {
-                                script {
-                                    test.dummy_test()
+                                steps {
+                                    script {
+                                        test.dummy_test()
+                                    }
                                 }
                             }
                         }
                     }
 
                     stage('Analyse with Coverity') {
-                        script {
-                            coverity.analysis()
+                        steps{
+                            script {
+                                coverity.analysis()
+                            }
                         }
                     }
                 }
@@ -65,8 +69,10 @@ def call() {
             }
         }
         post {
-            script {
-                notify()
+            steps {
+                script {
+                    notify()
+                }
             }
         }
 

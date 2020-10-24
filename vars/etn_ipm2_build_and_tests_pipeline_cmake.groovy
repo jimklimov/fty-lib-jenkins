@@ -69,10 +69,8 @@ def call() {
             }
         }
         post {
-            steps {
-                script {
-                    notify()
-                }
+            script {
+                notify()
             }
         }
 

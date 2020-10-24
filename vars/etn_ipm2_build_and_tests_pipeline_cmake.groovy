@@ -69,8 +69,15 @@ def call() {
             }
         }
         post {
-            script {
-                notify()
+            success {
+                script {
+                    notify.success()
+                }
+            }
+            failure {
+                script {
+                    notify.failure()
+                }
             }
         }
 

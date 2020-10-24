@@ -14,7 +14,9 @@ def call() {
                         stages {
                             stage('Build without tests') {
                                 steps {
-                                    build.cmake_release()
+                                    script {
+                                        build.cmake_release()
+                                    }
                                 }
                             }
                         }
@@ -24,36 +26,48 @@ def call() {
                         stages {
                             stage('Build with tests') {
                                 steps {
-                                    build.cmake_debug()
+                                    script {
+                                        build.cmake_debug()
+                                    }
                                 }
                             }
 
                             stage('Tests') {
                                 steps {
-                                    test.dummy_test()
+                                    script {
+                                        test.dummy_test()
+                                    }
                                 }
                             }
 
                             stage('Memchecks') {
-                                test.dummy_test()
+                                script {
+                                    test.dummy_test()
+                                }
                             }
                         }
                     }
 
                     stage('Analyse with Coverity') {
-                        coverity.analysis()
+                        script {
+                            coverity.analysis()
+                        }
                     }
                 }
             }
 
             stage ('deploy if appropriate') {
                 steps {
-                    deploy()
+                    script {
+                        deploy()
+                    }
                 }
             }
         }
         post {
-            notify()
+            script {
+                notify()
+            }
         }
 
     }

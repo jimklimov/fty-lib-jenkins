@@ -1,12 +1,4 @@
 def analysis() {
-    when {
-        beforeAgent true
-        anyOf {
-            branch 'master'
-            branch "release/*"
-            changeRequest()
-        }    
-    }
     stages {
         stage('Compile') {
             steps {
@@ -46,16 +38,6 @@ def analysis() {
                     coverity.sh --commit $PWD/build_coverity "${COV_GIT_PROJECT_NAME}" "${COV_GIT_BRANCH}" "${COV_GIT_COMMIT_ID}"
                 '''
             }
-        }
-    }
-    post {
-        always {
-            recordIssues (
-                enabledForFailure: true,
-                aggregatingResults: true,
-                qualityGates: [[threshold: 1, type: 'DELTA_ERROR', fail: true]],
-                tools: [issues(name: "Coverity Analysis",pattern: '**/tmp_cov_dir/output/*.errors.json')]
-            )
         }
     }
 }
